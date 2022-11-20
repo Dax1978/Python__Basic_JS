@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Homework #4</title>
+</head>
+
+<body>
+  <!--
+    Необязательное задание.
+
+    Необходимо от пользователя получить число.
+    Необходимо вывести разряды числа, а именно: количество сотен, десятков и единиц.
+
+    Пример:
+    Пользователь ввел число 163. Программа должна вывести:
+    "В числе 163 количество сотен: 1, десятков: 6, единиц: 3"
+
+    Пример 2:
+    Пользователь ввел число 74. Программа должна вывести:
+    "В числе 74 количество сотен: 0, десятков: 7, единиц: 4"
+
+    Пример 3:
+    Пользователь ввел число 9537. Программа должна вывести:
+    "В числе 9537 количество сотен: 5, десятков: 3, единиц: 7"
+
+    Уточнение: пользователь всегда вводит корректное положительное целое число.
+  -->
+  <script>
+    "use strict";
+
+    // https://learn.javascript.ru/operators
+
+    const num = +prompt('Введите число:', 753);
+    var remainder = num;
+
+    var units = 0;
+    var tens = 0;
+    var hundreds = 0;
+
+
+    for (var step = 0; step < String(num).length; step++) {
+      switch (step) {
+        case 0:
+          units = remainder % 10;
+          break;
+        case 1:
+          tens = remainder % 10;
+          break;
+        case 2:
+          hundreds = remainder % 10;
+          break;
+      }
+      remainder = Math.trunc(remainder / 10);
+    }
+
+    console.log(`В числе ${num} количество сотен: ${hundreds}, десятков: ${tens}, единиц: ${units}`);
+
+  </script>
+</body>
+
+</html>
