@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Homework: Lesson 04 #1</title>
+</head>
+
+<body>
+  <!--
+Обязательное задание.
+
+Необходимо данное задание выполнить в es5 стиле и в es6 стиле.
+Необходимо создать функцию-конструктор/класс для продукта.
+Названия: `ProductES5` для es5 стиля, `ProductES6` для es6 стиля.
+При создании объекта от функции-конструктора/класса необходимо передавать имя
+и цену товара, эта информация должна быть сохранена в объекте.
+Также у объекта должна быть возможность выполнить метод `make25Discount`, данный
+метод должен уменьшать стоимость продукта на 25%.
+Необходимо продемонстрировать работу с объектом (в свободной форме).
+-->
+  <script>
+    "use strict";
+
+    // Стиль ES5
+
+    // Метод make25Discount, уменьшающий стоимость продукта на 25%.
+    function make25Discount() {
+      return this.price * 0.75;
+    };
+
+    // Конструктор
+    function ProductES5(name, price) {
+      this.name = name;
+      this.price = price;
+      this.make25Discount = make25Discount;
+    }
+
+    const productES5 = new ProductES5('Фонарь', 2000);
+    console.log(`Товар: ${productES5.name}, цена: ${productES5.price}, ` +
+      `цена с дисконтом ${productES5.make25Discount()}`);
+
+    // Стиль ES6
+
+    class ProductES6 {
+      // Конструктор
+      constructor(name, price) {
+        this.name = name;
+        this.price = price;
+      }
+
+      // Метод make25Discount, уменьшающий стоимость продукта на 25%.
+      make25Discount() {
+        return this.price * 0.75;
+      }
+    }
+
+    const productES6 = new ProductES6('Фонарь', 2000);
+    console.log(`Товар: ${productES6.name}, цена: ${productES6.price}, ` +
+      `цена с дисконтом ${productES6.make25Discount()}`);
+
+  </script>
+</body>
+
+</html>
