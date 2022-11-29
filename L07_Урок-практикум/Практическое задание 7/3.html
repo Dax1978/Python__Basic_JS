@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Homework: lesson 7 #3</title>
+</head>
+
+<body>
+  <!--
+Необязательное задание.
+
+Ваша задача - создать функцию, которая может принимать любое неотрицательное
+целое число в качестве аргумента и возвращать число с теми же цифрами, но в
+порядке убывания.
+Если проще - переставьте цифры, чтобы получить максимально возможное число из
+данного набора цифр.
+-->
+  <script>
+    "use strict";
+
+    /**
+     * Функция перемещает цифры получая наибольшее число.
+     * @param {number} n - Число, из цифр которого нужно составить наибольшее
+     * возможное число с теми же цифрами.
+     * @returns {number} - Набольшее число из набора цифр числа, переданного в
+     * параметр "n"
+     */
+    function descendingOrder(n) {
+      // Переводим в строку
+      let st = n.toString();
+      // Создаем массив букв
+      st = st.split('');
+      // Сортируем по убыванию (для возрастающей a - b)
+      // https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+      st.sort(function (a, b) {
+        return b - a;
+      });
+      // Объединяем в одно
+      st = st.join('');
+      return st;
+    }
+
+    console.log(descendingOrder(42145)); // 54421
+    console.log(descendingOrder(145263)); // 654321
+    console.log(descendingOrder(123456789)); // 987654321
+  </script>
+</body>
+
+</html>
