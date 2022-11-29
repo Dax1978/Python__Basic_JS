@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homework: lesson 7 #2</title>
+  <style>
+    .products {
+      overflow: hidden;
+      margin-top: 40px;
+    }
+
+    .product {
+      float: left;
+      margin-right: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <button class="menuButton" data-type="phones">Показать смартфоны</button>
+    <button class="menuButton" data-type="tablets">Показать планшеты</button>
+    <button class="menuButton" data-type="tv">Показать телевизоры</button>
+  </header>
+
+  <div class="products"></div>
+
+  <script>
+    /*
+    1. Программист Паша уволился с работы и не закончил задачу.
+    Задача состояла в том, чтобы при клике на какую-либо кнопку в теге header
+    выводить продукты в div с классом products.
+    Продукты, которые надо вывести, валидны и прописаны в объекте products.
+    Однако, Паша явно сделал много ошибок в других кусках кода, вам необходимо
+    исправить все ошибки и внимательно проверить чтоб код работал правильно и
+    ничего лишнего не выводилось в div с классом products.
+    */
+
+    class Product {
+      constructor(id, name, price, imageUrl) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.imageUrl = imageUrl;
+      }
+
+      // Раз в методах используем переменные класса, то к ним нужны this.
+      /**
+       * @returns {string} html-разметка для товара
+       */
+      getProductMarkup() {
+        return `
+        <div class="product">
+            <div>${this.name}</div>
+            <img src="${this.imageUrl}" alt="">
+            <div>Цена: <span>${this.price}</span> р.</div>
+            <a href="https://example.com/producs/${this.id}">Подробнее</a>
+        </div>
+      `;
+      }
+    }
+
+    const products = {
+      phones: [
+        new Product(1, "Смартфон 1", "2533", "https://loremflickr.com/200/300/goods?lock=31"),
+        new Product(2, "Смартфон 2", "3123", "https://loremflickr.com/200/300/goods?lock=32"),
+        new Product(3, "Смартфон 3", "6123", "https://loremflickr.com/200/300/goods?lock=33"),
+      ],
+      tablets: [
+        new Product(4, "Плашнет 1", "5239", "https://loremflickr.com/200/300/goods?lock=34"),
+        new Product(5, "Плашнет 2", "6483", "https://loremflickr.com/200/300/goods?lock=35"),
+      ],
+      tv: [
+        new Product(6, "Телевизор 1", "4314", "https://loremflickr.com/200/300/goods?lock=36"),
+        new Product(7, "Телевизор 2", "5412", "https://loremflickr.com/200/300/goods?lock=37"),
+        new Product(8, "Телевизор 3", "3577", "https://loremflickr.com/200/300/goods?lock=38"),
+        new Product(9, "Телевизор 4", "8714", "https://loremflickr.com/200/300/goods?lock=39"),
+      ],
+    };
+
+    // Класс определяется через .
+    const productsEl = document.querySelector('.products');
+    document.querySelector('header').addEventListener('click', event => {
+      // Для определения целевого объекта нажатия используется target
+      // https://learn.javascript.ru/event-bubbling#:~:text=target%20%E2%80%93%20%D1%81%D0%B0%D0%BC%D1%8B%D0%B9%20%D0%B3%D0%BB%D1%83%D0%B1%D0%BE%D0%BA%D0%B8%D0%B9%20%D1%8D%D0%BB%D0%B5%D0%BC%D0%B5%D0%BD%D1%82%2C%20%D0%BD%D0%B0,%D0%BA%D0%BE%D1%82%D0%BE%D1%80%D0%BE%D0%B3%D0%BE%20%C2%AB%D0%B4%D0%BE%D0%BF%D0%BB%D1%8B%D0%BB%D0%BE%C2%BB%20%D1%81%D0%BE%D0%B1%D1%8B%D1%82%D0%B8%D0%B5).
+      // event.target – самый глубокий элемент, на котором произошло событие.
+      // event.currentTarget (=this) – элемент, на котором в данный момент сработал обработчик (до которого «доплыло» событие).
+      // event.eventPhase – на какой фазе он сработал (погружение =1, всплытие = 3).
+      // В classList передается название класса, а не его определение через .
+      if (!event.target.classList.contains('menuButton')) {
+        return;
+      }
+      // Для определения целевого объекта нажатия используется target
+      productsEl.innerHTML = products[event.target.dataset.type]
+        // В решении: В решении используется .join(""), что позволяет убрать кавычки
+        // Не разобрался почему кавычки можно убрать через .join("")
+        .map(product => product.getProductMarkup()).join("");
+    });
+
+  </script>
+</body>
+
+</html>
